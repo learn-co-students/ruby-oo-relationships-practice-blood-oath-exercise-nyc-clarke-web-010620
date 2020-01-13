@@ -12,7 +12,6 @@ class Follower
         @name = name 
         @age = age 
         @life_motto = life_motto
-        @cults = [] 
         @@all << self 
     end 
 
@@ -20,8 +19,21 @@ class Follower
         @@all 
     end 
 
-    def join_cult(cult)
-        binding.pry
+    def bloodoaths 
+        BloodOath.all.select do |bloodoath|
+            bloodoath.follower == self 
+        end 
+        
+    end 
+
+    def cults 
+        self.bloodoaths.map do |bloodoath|
+            bloodoath.cult
+        end 
+    end 
+
+    def join_cult(cult) #!!!!
+        # binding.pry
         cult.followers << self 
     end 
 
@@ -31,7 +43,30 @@ class Follower
         end
     end
 
+    def my_cult_slogans
+        self.cults.each do |cult|
+           puts cult.slogan
+        end 
+    end
+
+
+    def self.most_active
+       self.all.max_by do |follower|
+        follower.cults.count
+       end
+    end
+
+    def self.top_ten
+        array = self.all.sort_by do |follower|
+         follower.cults.length
+        end
+       return array.reverse.slice(0..10)
+    end 
+
+
+
 end 
+
 
 
 # Follower

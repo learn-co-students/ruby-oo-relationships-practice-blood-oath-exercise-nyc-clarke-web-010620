@@ -2,22 +2,36 @@ require 'pry'
 
 class BloodOath
 
-    attr_accessor :cult, :follower, :initialization_date
+    attr_accessor :cult, :follower, :initialization_date 
 
     @@all = []
 
     def initialize(cult, follower, initialization_date)
-        @cul t = cult
+        @cult = cult
         @follower = follower
         @initialization_date = initialization_date
+        @@all << self
 
 end
 
-def BloodOath
+def self.all
     @@all
 end
 
-binding.pry
+def initiation_date
+    return self.initialization_date
+end
+ def self.first_oath
+     self.all[0].follower
+
+ end
+
+
+
+
+
+end
+# binding.pry
 
 
 # BloodOath
